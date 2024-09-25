@@ -7,10 +7,35 @@ const cardStyle = {
   padding: '10px',
   textAlign: 'center',
   margin: '10px',
-  width: '150px'
+  width: '150px',
+  position: 'relative',
 };
 
-const PokemonCard = ({ pokemon }) => {
+const buttonStyle = {
+    position: 'absolute',
+    top: '10px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    border: 'none',
+    borderRadius: '5px',
+    padding: '5px 10px',
+    cursor: 'pointer',
+  };
+
+
+const addButtonStyle = {
+  ...buttonStyle,
+  backgroundColor: 'green',
+  color: 'white',
+};
+
+const removeButtonStyle = {
+  ...buttonStyle,
+  backgroundColor: 'red',
+  color: 'white',
+};  
+
+const PokemonCard = ({ pokemon, addToSquad, removeFromSquad, isInSquad }) => {
   const [pokemonData, setPokemonData] = useState(null);
   const [error, setError] = useState(null); // State for error handling
 
@@ -46,6 +71,11 @@ const PokemonCard = ({ pokemon }) => {
       <img src={pokemonData.sprites.front_default} alt={pokemonData.name} />
       <p>Base Exp: {pokemonData.base_experience}</p>
       <p>Move: {pokemonData.moves[0]?.move.name}</p>
+      {isInSquad(pokemonData.name) ? (
+        <button style={removeButtonStyle} onClick={() => removeFromSquad(pokemonData.name)}>Remove</button>
+      ) : (
+        <button style={addButtonStyle} onClick={() => addToSquad(pokemonData)}>Add</button>
+      )}
     </div>
   );
 };
