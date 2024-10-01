@@ -32,7 +32,10 @@ const squadContainerStyle = {
     return (
     <div style={squadContainerStyle}>
         <h2>My Squad</h2>
-        {squad.map(pokemon => (
+        {squad.length === 0 ? (
+          <p>Your squad is empty.</p>
+        ) : (
+          squad.map((pokemon) => (
           <div key={pokemon.name} style={squadCardStyle}>
             <h3>{pokemon.name}</h3>
             <img src={pokemon.sprites.front_default} alt={pokemon.name} />
@@ -40,7 +43,8 @@ const squadContainerStyle = {
             <p>Move: {pokemon.moves[0]?.move.name}</p>
             <button style={removeButtonStyle} onClick={() => removeFromSquad(pokemon.name)}>Remove</button>
           </div>
-        ))}
+        ))
+        )}
       </div>
     );
   };
